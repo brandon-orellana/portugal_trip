@@ -2,6 +2,7 @@
 
 from django.http import HttpResponse
 
+
 def index(request):
     blog = """ My first Europe trip was to Portugal.</br>
     <br>It was an amazing experience for the following reasons:</br>
