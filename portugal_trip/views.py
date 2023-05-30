@@ -1,9 +1,16 @@
+"""
+This is my index view.
+It contains the blog.
+"""
 # portugal_trip/views.py
 
 from django.http import HttpResponse
 
 
 def index(request):
+    """
+    This is my index view for HttpResponse.
+    """
     blog = """ My first Europe trip was to Portugal.</br>
     <br>It was an amazing experience for the following reasons:</br>
     <br>1. Architecture - The cobble stone roads, bridges, buildings, cathedrals,
