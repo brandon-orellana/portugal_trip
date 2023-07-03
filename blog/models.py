@@ -3,11 +3,28 @@ Contains the models used in the Django project.
 """
 from django.conf import settings
 from django.db import models
+#from django.db.models import Count
 from django.utils import timezone
 
+#Query Set
+class PostQuerySet(models.QuerySet):
+    """
+    Custom Query Set
+    """
+    def published(self):
+        """Published posts."""
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        """Draft Posts"""
+        return self.filter(status=self.model.DRAFT)
+
+#This is used to only provide topics that are used in atleast one post.
+    def get_topics(self):
+        """Topics of Posts"""
+        return Topic.objects.filter(blog_posts__in=self).distinct()
+
 #Topics Model
-
-
 class Topic(models.Model):
     """
     Represents a topic
@@ -32,7 +49,6 @@ class Topic(models.Model):
 
 #Post Model
 
-
 class Post(models.Model):
     """
     Represents a blog post
@@ -43,6 +59,7 @@ class Post(models.Model):
         (DRAFT, 'Draft'),
         (PUBLISHED, 'Published')
     ]
+    objects = PostQuerySet.as_manager()
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(
@@ -100,7 +117,6 @@ class Post(models.Model):
         String for post.
         """
         return self.title
-
 
 class Comment(models.Model):
     """

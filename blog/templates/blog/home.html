@@ -1,0 +1,17 @@
+<!-- blog/templates/blog/home.html -->
+
+{% extends "blog/base.html" %}
+
+{% block main %}
+<section class="latest-article-preview">
+<p>Welcome to the home page of my blog!</p>
+<h1>Latest Posts</h1>
+{% for post in latest_posts %}
+    <article>
+       <h3>{{ post.title }}</h3>
+        <em>Published {{ post.published|timesince }} ago</em>
+        {{ post.content|linebreaks }}
+    </article>
+{% endfor %}
+</section>
+{% endblock %}

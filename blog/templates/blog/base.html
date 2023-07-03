@@ -1,0 +1,54 @@
+<!-- blog/templates/blog/base.html -->
+
+{% load static %} <link rel="stylesheet" href="{% static 'blog/base.css' %}">
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>My Blog - {% block page_title %} Portugal Trip{% endblock %}</title>
+</head>
+
+<body>
+    <!-- The header -->
+    <header id="site-header">
+        <h1>Portugal Trip</h1>
+        <p> Welcome to my blog about my trip to Portugal!</p>
+        <img src="{% static 'blog/flag.png' %}" alt="Flag">
+    </header>
+
+    <!-- Top navigation -->
+    <nav id="top-nav">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Posts</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <div>
+        {% block main %}
+            <!-- Content for the main block will be rendered here -->
+        {% endblock %}
+        </div>
+
+        <aside id="sidebar">
+            <section id="topics-list">
+                <h3>Popular Topics</h3>
+                <ul>
+                    {% for topic in topics %}
+                    <li>{{ topic.name }} ({{ topic.blog_count }})</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer id="site-footer">
+        <!-- Print copyright with the current year -->
+        Copyright &copy;{% now 'Y' %}
+    </footer>
+</body>
+</html>
