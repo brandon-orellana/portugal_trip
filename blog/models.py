@@ -3,8 +3,9 @@ Contains the models used in the Django project.
 """
 from django.conf import settings
 from django.db import models
-#from django.db.models import Count
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 #Query Set
 class PostQuerySet(models.QuerySet):
@@ -19,10 +20,15 @@ class PostQuerySet(models.QuerySet):
         """Draft Posts"""
         return self.filter(status=self.model.DRAFT)
 
-#This is used to only provide topics that are used in atleast one post.
+    #This is used to only provide topics that are used in atleast one post.
     def get_topics(self):
         """Topics of Posts"""
         return Topic.objects.filter(blog_posts__in=self).distinct()
+
+    #This is used to get the authors in the queryset.
+    def get_authors(self):
+        User = get_user_model()
+        return User.objects.filter(blog_posts__in=self).distinct()
 
 #Topics Model
 class Topic(models.Model):
@@ -117,6 +123,18 @@ class Post(models.Model):
         String for post.
         """
         return self.title
+
+    def get_absolute_url(self):
+        if self.published:
+            kwargs = {
+                'year': self.published.year,
+                'month': self.published.month,
+                'day': self.published.day,
+                'slug': self.slug
+            }
+        else:
+            kwargs = {'pk': self.pk}
+        return reverse('post-detail', kwargs=kwargs)
 
 class Comment(models.Model):
     """
