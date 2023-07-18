@@ -1,0 +1,14 @@
+<!-- blog/templates/blog/post_detail.html -->
+
+{% extends "blog/base.html" %}
+
+{% block page_title %}{{ topic.name }}{% endblock %}
+
+{% block main %}
+<article id="topic-detail-article">
+    <h1>{{ topic.name }}</h1>
+    {% for post in topic_posts %}
+        {% include "blog/post_preview.html" %}
+    {% endfor %}
+</article>
+{% endblock %}

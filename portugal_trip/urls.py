@@ -28,5 +28,7 @@ urlpatterns = [
     path('posts/', views.PostListView.as_view(), name='post-list'),
     path(('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/'),\
          views.PostDetailView.as_view(), name='post-detail'),
-    path(('posts/<int:pk>/'),views.PostDetailView.as_view(),name='post-detail'),
+    path('posts/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
+    path('topics/', views.TopicListView.as_view(), name='topic-list'),
+    path('topics/<slug:slug>/', views.TopicDetailView.as_view(), name='topic-detail'),
 ]

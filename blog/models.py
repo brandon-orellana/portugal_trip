@@ -53,6 +53,10 @@ class Topic(models.Model):
         """
         ordering = ['name']
 
+    def get_absolute_url(self):
+        kwargs = {'slug': self.slug}
+        return reverse('topic-detail', kwargs=kwargs)
+
 #Post Model
 
 class Post(models.Model):
