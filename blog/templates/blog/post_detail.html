@@ -8,8 +8,12 @@
 <article id="post-detail-article">
     <h1>{{ post.title }}</h1>
     <span class="published">Published <time>{{ post.published }}</time></span><br>
-    <span class="author">{{ post.author.get_full_name }}</span>
-
+    <span class="author">{{ post.author.get_full_name }}</span><br>
+    <p>
+        {% for topic in post.topics.all %}
+        <a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a>,
+        {% endfor %}
+    </p>
     <section class="content">{{ post.content|linebreaks }}</section>
 </article>
 {% endblock %}

@@ -7,6 +7,7 @@
 {% block main %}
 <article id="topic-detail-article">
     <h1>{{ topic.name }}</h1>
+    <em>{{ topic_posts|length }} Posts</em>
     {% for post in topic_posts %}
         {% include "blog/post_preview.html" %}
     {% endfor %}
