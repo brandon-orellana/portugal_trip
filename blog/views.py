@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView
-from django.views.generic import DetailView
-from django.db.models import Count
-from . import models
+from django.views.generic import DetailView, CreateView, FormView, ListView
+from . import forms, models
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 class PostDetailView(DetailView):
     model = models.Post
@@ -79,3 +79,36 @@ class TopicListView(ListView):
 
 def terms_and_conditions(request):
     return render(request, 'blog/terms_and_conditions.html')
+
+class PhotoContestFormView(FormView):
+    template_name = 'blog/photo_contest_form.html'
+    form_class = forms.PhotoContestForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        # Success message
+        messages.add_message(
+        self.request,
+        messages.SUCCESS,
+        'Thank you! Your photo submission has been received.'
+    )
+        # Default
+        return super().form_valid(form)
+
+class ContactFormView(CreateView):
+    model = models.Contact
+    success_url = reverse_lazy('home')
+    fields = [
+        'first_name',
+        'last_name',
+        'email',
+        'message',
+    ]
+
+    def form_valid(self, form):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            'Thank you! Your message has been sent.'
+        )
+        return super().form_valid(form)

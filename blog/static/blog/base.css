@@ -1,18 +1,42 @@
 /* blog/static/blog/base.css */
 
+/* Messages */
+.django-messages {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0;
+    list-style: none;
+}
+
+.django-messages div {
+    padding: 1rem;
+}
+
+.django-messages .success {
+    background: #bdfcb3;
+    color: #355430;
+}
+
 html {
     height: 100%; /* Using whole height of browser */
 }
 
 body {
-    display: grid;
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #e4d1d1;
+}
+
+body .wrapper {
+    display: grid;
     grid-template-rows: auto auto 1fr auto;
     margin: 0 auto;
-    max-width: 1000px;
     min-height: 100%;
+    max-width: 1000px;
     padding: 1rem;
-    background-color: #e4d1d1;
 }
 
 /* Styling the <a> tags */
@@ -122,4 +146,71 @@ a:hover {
 
 #post-detail-article .content {
     margin-top: 2rem 0;
+}
+
+.post-comma-list {
+    display: inline;
+    list-style: none;
+    padding: 0px;
+}
+
+.post-comma-list li {
+    display: inline;
+}
+
+.post-comma-list li::after {
+    content: ", ";
+}
+
+.post-comma-list li:last-child::after {
+    content: "";
+}
+
+/* Forms */
+
+/* Style the left form table label column */
+form table tbody tr th {
+    max-width: 200px;
+    text-align: left;
+    padding: 0.5em 1em 0.5em 0;
+    font-weight: 100;
+}
+
+/* Add some vertical spacing between rows */
+form table tbody td {
+    padding: 0.5em 0;
+}
+
+/* Style inputs */
+input {
+    border-radius: 0px;
+    font-size: 1em;
+    padding: 0.3em 0.5em;
+    text-align: left;
+}
+
+/* Style button */
+button {
+    font-size: 1em;
+    color: #000;
+    cursor: pointer;
+    padding: 0.5em 3em;
+    border: 1px solid #999;
+    background: #eee;
+}
+
+/* Style select */
+select {
+    font-size: 1em;
+    padding: 1em;
+    line-height: 1.5em;
+}
+
+/* Style error message */
+form .errorlist {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: red;
+    padding: 0 0 0 1.5em;
+    margin: 0;
 }

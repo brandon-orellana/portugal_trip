@@ -31,4 +31,6 @@ urlpatterns = [
     path('posts/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
     path('topics/', views.TopicListView.as_view(), name='topic-list'),
     path('topics/<slug:slug>/', views.TopicDetailView.as_view(), name='topic-detail'),
+    path('photo-contest-formview/', views.PhotoContestFormView.as_view(), name='photo-contest-formview'),
+    path('contact/', views.ContactFormView.as_view(), name='contact'),
 ]

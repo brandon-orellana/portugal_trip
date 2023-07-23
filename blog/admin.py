@@ -76,3 +76,21 @@ class CommentAdmin(admin.ModelAdmin):
         'email',
         'text',
     )
+
+@admin.register(models.Contact)
+class ContactAdmin(admin.ModelAdmin):
+    """Contact Admin."""
+    list_display = (
+        'email',
+        'last_name',
+        'first_name',
+        'submitted',
+    )
+
+    readonly_fields = (
+        'first_name',
+        'last_name',
+        'email',
+        'message',
+        'submitted',
+    )
