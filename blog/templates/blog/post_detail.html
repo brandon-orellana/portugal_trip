@@ -14,6 +14,10 @@
         <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
         {% endfor %}
     </ul>
-    <section class="content">{{ post.content|linebreaks }}</section>
+    <section class="content">{{ post.content|safe|linebreaks }}</section>
 </article>
 {% endblock %}
+
+{% if post.banner %}
+    <img src="{{ post.banner.url }}" width="100%" ALT="Banner image">
+{% endif %}

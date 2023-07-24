@@ -1,6 +1,8 @@
 """
 Contains the models used in the Django project.
 """
+
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -72,6 +74,13 @@ class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
     title = models.CharField(max_length=255)
+
+    banner = models.ImageField(
+        blank=True,
+        null=True,
+        help_text='A banner image for the post'
+    )
+
     slug = models.SlugField(
         null=False,
         unique_for_date='published',
@@ -140,6 +149,8 @@ class Post(models.Model):
             kwargs = {'pk': self.pk}
         return reverse('post-detail', kwargs=kwargs)
 
+    content = RichTextUploadingField()
+
 class Comment(models.Model):
     """
     Represents a comment
@@ -186,3 +197,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return f'{self.submitted.date()}: {self.email}'
+
+class PhotoContestSubmission(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    photo = models.ImageField(
+        blank=True,
+        null=True,
+        help_text='A photo submission for the contest.'
+    )
+    submitted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-submitted']
+
+    def __str__(self):
+        return ""

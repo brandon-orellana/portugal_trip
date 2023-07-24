@@ -15,9 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 #from . import views # Import the view module for portugal_trip project
 from blog import views # Import the blog views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     #path('', views.index), # Add the index view to the URL patterns
@@ -33,4 +35,5 @@ urlpatterns = [
     path('topics/<slug:slug>/', views.TopicDetailView.as_view(), name='topic-detail'),
     path('photo-contest-formview/', views.PhotoContestFormView.as_view(), name='photo-contest-formview'),
     path('contact/', views.ContactFormView.as_view(), name='contact'),
-]
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

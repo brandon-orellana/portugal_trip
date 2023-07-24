@@ -5,15 +5,15 @@
 {% block main %}
 <h1>Enter the Photo Contest!</h1>
 
-<form action="" method="post" novalidate>
+<form action="" method="post" novalidate enctype="multipart/form-data">
     {% csrf_token %}
-    <p>{% lorem %}</p>
+    <p>Enter the photo contest for a chance to win two thumbs up.</p>
     <p>{% lorem %}</p>
     <table>
         {{ form.as_table }}
         <tr>
             <td colspan=2>
-                <button type="submit">Sign up!</button>
+                <button type="submit">Submit</button>
             </td>
         </tr>
     </table>

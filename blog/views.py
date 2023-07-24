@@ -80,10 +80,16 @@ class TopicListView(ListView):
 def terms_and_conditions(request):
     return render(request, 'blog/terms_and_conditions.html')
 
-class PhotoContestFormView(FormView):
+class PhotoContestFormView(CreateView):
+    model = models.PhotoContestSubmission
     template_name = 'blog/photo_contest_form.html'
-    form_class = forms.PhotoContestForm
     success_url = reverse_lazy('home')
+    fields = [
+        'first_name',
+        'last_name',
+        'email',
+        'photo',
+    ]
 
     def form_valid(self, form):
         # Success message
