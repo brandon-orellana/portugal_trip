@@ -15,6 +15,24 @@
         {% endfor %}
     </ul>
     <section class="content">{{ post.content|safe|linebreaks }}</section>
+    <hr>
+    <section class="comment">
+        <h3>Latest Comments</h3>
+        {% if not post.comments.all %}
+            No comments posted. <a href="#"> Add comment </a>
+        {% else %}
+            {% for comment in post.comments.all %}
+                <strong>
+                    By {{ comment.name }} | {{ comment.created }}
+                </strong>
+                </br>
+                {{ comment.text }}
+            </br></br>
+            {% endfor %}
+        {% endif %}
+        <hr>
+    </section>
+    {% include "blog/comment_form.html" %}
 </article>
 {% endblock %}
 

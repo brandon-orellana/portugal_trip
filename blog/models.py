@@ -8,6 +8,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+#from django.db.models import F
 
 #Query Set
 class PostQuerySet(models.QuerySet):
@@ -166,6 +167,8 @@ class Comment(models.Model):
     approved = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    likes = models.PositiveIntegerField(default=0)
+    dislikes = models.PositiveIntegerField(default=0)
 
     def approve(self):
         """

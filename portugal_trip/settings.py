@@ -27,6 +27,9 @@ SECRET_KEY = 'django-insecure-7lfcodv12fs4r4v_mf3l9@)vv17^s6!(7iatbkg8l1=udz$s@0
 DEBUG = int(os.environ.get('DEBUG', '1'))
 
 ALLOWED_HOSTS = []
+#[".azurewebsites.net", "127.0.0.1"] (for Azure)
+
+#CSRF_TRUSTED_ORIGINS = ["https://*.azurewebsites.net"] (for Azure)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -49,6 +52,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

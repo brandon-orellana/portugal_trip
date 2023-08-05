@@ -4,6 +4,7 @@ from django.views.generic import DetailView, CreateView, FormView, ListView
 from . import forms, models
 from django.urls import reverse_lazy
 from django.contrib import messages
+#from django.views.decorators.clickjacking import xframe_options_exempt
 
 class PostDetailView(DetailView):
     model = models.Post
@@ -116,5 +117,22 @@ class ContactFormView(CreateView):
             self.request,
             messages.SUCCESS,
             'Thank you! Your message has been sent.'
+        )
+        return super().form_valid(form)
+
+class CommentFormView(FormView):
+    template_name = 'blog/comment_form.html'
+    form_class = forms.CommentForm
+    success_url = reverse_lazy('home')
+    fields = [
+        'name',
+        'email',
+        'text',
+    ]
+    def form_valid(self, form):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            'Thank you! Your comment has been submitted.'
         )
         return super().form_valid(form)
