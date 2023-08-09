@@ -1,9 +1,8 @@
 <!-- blog/templates/blog/post_detail.html -->
 
 {% extends "blog/base.html" %}
-
+{% load static %}
 {% block page_title %}{{ post.title }}{% endblock %}
-
 {% block main %}
 <article id="post-detail-article">
     <h1>{{ post.title }}</h1>
@@ -27,6 +26,9 @@
                 </strong>
                 </br>
                 {{ comment.text }}
+                </br></br>
+                <a href="#"><img src="{% static 'blog/thumbsup.png' %}" alt="Thumbs Up" width="20" height="20"></a>
+                <a href="#"><img src="{% static 'blog/thumbsdown.png' %}" alt="Thumbs down" width="20" height="20"></a>
             </br></br>
             {% endfor %}
         {% endif %}
