@@ -27,8 +27,10 @@
                 </br>
                 {{ comment.text }}
                 </br></br>
-                <a href="#"><img src="{% static 'blog/thumbsup.png' %}" alt="Thumbs Up" width="20" height="20"></a>
-                <a href="#"><img src="{% static 'blog/thumbsdown.png' %}" alt="Thumbs down" width="20" height="20"></a>
+                <a href="/comments/{{ comment.pk }}/like"><img src="{% static 'blog/thumbsup.png' %}"
+                                 alt="Thumbs Up" width="20" height="20" class="like"> {{ comment.likes }} </a>
+                <a href="/comments/{{ comment.pk }}/dislike"><img src="{% static 'blog/thumbsdown.png' %}"
+                                 alt="Thumbs down" width="20" height="20" class="dislike">{{ comment.dislikes }}</a>
             </br></br>
             {% endfor %}
         {% endif %}
