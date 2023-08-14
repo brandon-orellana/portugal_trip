@@ -4,7 +4,6 @@ from django.views.generic import DetailView, CreateView, FormView, ListView
 from . import forms, models
 from django.urls import reverse_lazy
 from django.contrib import messages
-#from django.views.decorators.clickjacking import xframe_options_exempt
 
 class PostDetailView(DetailView):
     model = models.Post
