@@ -36,6 +36,7 @@ urlpatterns = [
     path('photo-contest-formview/', views.PhotoContestFormView.as_view(), name='photo-contest-formview'),
     path('contact/', views.ContactFormView.as_view(), name='contact'),
     path('comment-form/', views.CommentFormView.as_view(), name='comment-form'),
-    #path('comments/<int:pk>/like')
+    path('comments/<int:pk>/like', views.like_comment, name='like-comment'),
+    path('comments/<int:pk>/dislike', views.dislike_comment, name='dislike-comment'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

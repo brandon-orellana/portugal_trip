@@ -18,7 +18,7 @@
     <section class="comment">
         <h3>Latest Comments</h3>
         {% if not post.comments.all %}
-            No comments posted. <a href="#"> Add comment </a>
+            No comments posted.
         {% else %}
             {% for comment in post.comments.all %}
                 <strong>

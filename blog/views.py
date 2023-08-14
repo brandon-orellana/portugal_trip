@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, CreateView, FormView, ListView
 from . import forms, models
@@ -8,6 +8,7 @@ from django.contrib import messages
 
 class PostDetailView(DetailView):
     model = models.Post
+    comment = models.Comment
 
     def get_queryset(self):
         queryset = super().get_queryset().published()
@@ -20,6 +21,14 @@ class PostDetailView(DetailView):
             published__month=self.kwargs['month'],
             published__day=self.kwargs['day'],
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = forms.CommentForm
+
+        context.update({'form': form})
+
+        return context
 
 class PostListView(ListView):
     model = models.Post
@@ -124,6 +133,7 @@ class CommentFormView(FormView):
     template_name = 'blog/comment_form.html'
     form_class = forms.CommentForm
     success_url = reverse_lazy('home')
+
     fields = [
         'name',
         'email',
@@ -136,3 +146,17 @@ class CommentFormView(FormView):
             'Thank you! Your comment has been submitted.'
         )
         return super().form_valid(form)
+
+def like_comment(request, pk):
+    """Viewing the number of likes"""
+    comment = get_object_or_404(models.Comment, pk=pk)
+    comment.likes += 1
+    comment.save()
+    return redirect(reverse('post-detail', args=[comment.post.pk]))
+def dislike_comment(request, pk):
+    """Viewing the number if dislikes"""
+    comment = get_object_or_404(models.Comment, pk=pk)
+    comment.dislikes += 1
+    comment.save()
+    # Return a JSON response
+    return redirect(reverse('post-detail', args=[comment.post.pk]))
